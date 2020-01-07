@@ -107,7 +107,6 @@ router.get('/', function(req, res, next) {
       const forLoop = async _ => {
         for (i = 1; i <= elements.length; i++) {
 
-          // console.log(i);
           await sleep.sleep(2);
           await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
           var company_name = await driver.findElement(By.css("div.tWfTvb div.u3WVdc.jBmls div.s3ARzb.eejsDc.ddc5Hb div:nth-child("+i+") div div.iPVm1b.cgo1ib div.utePyc")).getText();
@@ -125,6 +124,9 @@ router.get('/', function(req, res, next) {
 
           console.log('hello '+parseInt(countmyCoverageMetaData[countmyCoverageMetaData.length -1]));
 
+          await sleep.sleep(1);
+          await driver.wait(until.elementLocated(By.css("div.sfS3Pd div:nth-child(2) a.Lhhaec"))).click();
+
           if(i == 1)
           {
             var myCoverageMetaData = await driver.findElement(By.css("div.CtOYUe.I4chsf.VJARVc.RtPpqe table.i3WFpf tbody tr:nth-child(2) td.XgRaPc.AB6Eee.QNcORc.csDJwd.LoCYSb.Bj8DDb.sbEvHd span.zRhise span")).getText();
@@ -138,7 +140,6 @@ router.get('/', function(req, res, next) {
             }
         }
 
-          // var myCoverageMetaData = await driver.findElement(By.css("div.CtOYUe.I4chsf.VJARVc.RtPpqe table.i3WFpf tbody tr:nth-child(2) td.XgRaPc.AB6Eee.QNcORc.csDJwd.LoCYSb.Bj8DDb.sbEvHd span.zRhise span")).getText();
 
           await driver.wait(until.elementLocated(By.css("nav.j2F0y div:nth-child(4) div.sfS3Pd span div:nth-child(2) a.Lhhaec"))).click();
           await driver.navigate().refresh();
