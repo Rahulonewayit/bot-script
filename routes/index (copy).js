@@ -122,6 +122,8 @@ router.get('/', function(req, res, next) {
           console.log('hello '+parseInt(countmyCoverageMetaData[countmyCoverageMetaData.length -1]));
 
           await sleep.sleep(1);
+          await driver.wait(until.elementLocated(By.css("div.sfS3Pd div:nth-child(2) a.Lhhaec"))).click();
+          await sleep.sleep(1);
           await driver.navigate().refresh();
 
           if(i == 1)
@@ -136,17 +138,6 @@ router.get('/', function(req, res, next) {
               }
             }
         }
-
-          await sleep.sleep(1);
-          await driver.wait(until.elementLocated(By.css("div.sfS3Pd div:nth-child(2) a.Lhhaec"))).click();
-          await driver.navigate().refresh();
-
-          await driver.findElement(By.css("table.i3WFpf tbody tr td:nth-child(5) span span.Ncxbed")).then(async function(siteMapElement){
-              var sitemapVal = await driver.findElement(By.css("table.i3WFpf tbody tr td:nth-child(1) span")).getText();
-              await insertError({error_value: company_name+' Sitemaps',error_sub_value: myDataMetaMobile ,getCardsOnList: myConfiGration.card_id});
-          },function(err){
-              console.log('Sitemap Element not found');
-          });
 
 
           await driver.wait(until.elementLocated(By.css("nav.j2F0y div:nth-child(4) div.sfS3Pd span div:nth-child(2) a.Lhhaec"))).click();
@@ -163,6 +154,7 @@ router.get('/', function(req, res, next) {
           }
 
         }
+
       }
       forLoop();
     });
