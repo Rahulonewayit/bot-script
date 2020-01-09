@@ -143,7 +143,7 @@ router.get('/', function(req, res, next) {
 
           await driver.findElement(By.css("table.i3WFpf tbody tr td:nth-child(5) span span.Ncxbed")).then(async function(siteMapElement){
               var sitemapVal = await driver.findElement(By.css("table.i3WFpf tbody tr td:nth-child(1) span")).getText();
-              await insertError({error_value: company_name+' Sitemaps',error_sub_value: myDataMetaMobile ,getCardsOnList: myConfiGration.card_id});
+              await insertError({error_value: company_name+' Sitemaps',error_sub_value: sitemapVal ,getCardsOnList: myConfiGration.card_id});
           },function(err){
               console.log('Sitemap Element not found');
           });
