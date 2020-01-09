@@ -6,21 +6,20 @@ var sleep = require('sleep');
 const GoogleSpreadsheet = require('google-spreadsheet');
 const async = require('async');
 const path = require('path');
+var appRoot = require('app-root-path');
+var myConfiGration = require(appRoot.path+"/config.json");
 const webdriver = require('selenium-webdriver');
 const { ServiceBuilder } = require('selenium-webdriver/chrome');
 const {Builder, By, Key, until} = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const ip = require('ip');
-const trelloNode = require('trello-node-api')('28df62567338bd5ede6bc84fa6ef59a9', '98119a05870d300a5d5463fd777eb526fff0267c899c7b22dfe669f53b6e0d36');
 const publicIp = require('public-ip');
 var Trello = require("trello");
-var trello = new Trello("28df62567338bd5ede6bc84fa6ef59a9", "98119a05870d300a5d5463fd777eb526fff0267c899c7b22dfe669f53b6e0d36");
+
+var trello = new Trello(myConfiGration.apiKey,myConfiGration.oauthToken);
 const router = express.Router();
 
-
 var chromePath = require('chromedriver').path;
-
-
 
 
 const SeleniumRecord = require('../modules/selenium');
@@ -72,11 +71,13 @@ async function getaddTrelloError(input,error_sub_value)
   });
 }
 
-
-
 router.get('/', function(req, res, next) {
     res.json('my index page');
 });
+
+
+
+
 
 (async function example() {
   let driver = await new Builder().forBrowser('chrome').build();
@@ -85,24 +86,22 @@ router.get('/', function(req, res, next) {
     await driver.get('https://search.google.com/search-console/welcome');
     await driver.wait(until.elementLocated(By.css("div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf"))).sendKeys('apps.1wayit@gmail.com');
     await driver.wait(until.elementLocated(By.id("identifierNext"))).click();
-    await driver.wait(until.elementLocated(By.css("div.aCsJod.oJeWuf div.aXBtI.I0VJ4d.Wic03c div.Xb9hP input.whsOnd.zHQkBf"))).sendKeys('1Wayit@apple');
+    // await driver.wait(until.elementLocated(By.css("div.aCsJod.oJeWuf div.aXBtI.I0VJ4d.Wic03c div.Xb9hP input.whsOnd.zHQkBf"))).sendKeys('1Wayit@apple');
 
 
 
-    await sleep.sleep(5);
+    await sleep.sleep(10);
 
     console.log("login success");
 
-    await driver.findElement(By.css("header.gb_sa.gb_Za.gb_Pe.gb_Nd.gb_Cc div.gb_Md.gb_3d.gb_Ud.gb_rc div.gb_Rc.gb_Zc.gb_0c div.gb_qc")).click();
+    // 1Wayit@apple
+
+    await driver.findElement(By.css("header div:nth-child(2) div:nth-child(1) div:nth-child(1)")).click();
     await sleep.sleep(2);
     await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
 
 
-
-
     await driver.findElements(By.css("div.s3ARzb.eejsDc.ddc5Hb div.MkjOTb.oKubKe.zpVKtf")).then(elements => {
-
-      // console.log(elements.length);
 
       const forLoop = async _ => {
         for (i = 1; i <= elements.length; i++) {
@@ -130,12 +129,12 @@ router.get('/', function(req, res, next) {
           if(i == 1)
           {
             var myCoverageMetaData = await driver.findElement(By.css("div.CtOYUe.I4chsf.VJARVc.RtPpqe table.i3WFpf tbody tr:nth-child(2) td.XgRaPc.AB6Eee.QNcORc.csDJwd.LoCYSb.Bj8DDb.sbEvHd span.zRhise span")).getText();
-            await insertError({error_value: company_name+' Coverage',error_sub_value: myCoverageMetaData ,getCardsOnList: '5a181330dd40811fb5cdbda5'});
+            await insertError({error_value: company_name+' Coverage',error_sub_value: myCoverageMetaData ,getCardsOnList: myConfiGration.card_id});
           }else {
             if(parseInt(countmyCoverageMetaData[countmyCoverageMetaData.length -1])) {
               for (cj = 1; cj <= parseInt(countmyCoverageMetaData[countmyCoverageMetaData.length -1]); cj++) {
                 var myCoverageMetaData = await driver.findElement(By.css("div.CtOYUe.I4chsf.VJARVc.RtPpqe table.i3WFpf tbody tr:nth-child("+cj+") td.XgRaPc.AB6Eee.QNcORc.csDJwd.LoCYSb.Bj8DDb.sbEvHd span.zRhise span")).getText();
-                await insertError({error_value: company_name+' Coverage',error_sub_value: myCoverageMetaData ,getCardsOnList: '5a181330dd40811fb5cdbda5'});
+                await insertError({error_value: company_name+' Coverage',error_sub_value: myCoverageMetaData ,getCardsOnList: myConfiGration.card_id});
               }
             }
         }
@@ -150,7 +149,7 @@ router.get('/', function(req, res, next) {
           {
             for (j = 1; j <= parseInt(myDataMeta[myDataMeta.length -1]); j++) {
                 var myDataMetaMobile = await driver.findElement(By.css("div.CtOYUe.I4chsf.VJARVc.RtPpqe table.i3WFpf tbody tr:nth-child("+j+") td.XgRaPc.AB6Eee.QNcORc.csDJwd.LoCYSb.Bj8DDb.sbEvHd span.zRhise")).getText();
-                await insertError({error_value: company_name+' Mobile Usability',error_sub_value: myDataMetaMobile ,getCardsOnList: '5a181330dd40811fb5cdbda5'});
+                await insertError({error_value: company_name+' Mobile Usability',error_sub_value: myDataMetaMobile ,getCardsOnList: myConfiGration.card_id});
               }
 
           }

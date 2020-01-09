@@ -5,9 +5,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-mongoose.connect('mongodb://localhost:27017/node_selenium',{ useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://amanphp:amanphp@cluster0-shard-00-00-r2i0z.mongodb.net:27017,cluster0-shard-00-01-r2i0z.mongodb.net:27017,cluster0-shard-00-02-r2i0z.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true',{ useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
 
-
+// mongoose.connect('mongodb://localhost:27017/node_selenium',{ useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
 
 
 var indexRouter = require('./routes/index');
