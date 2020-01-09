@@ -158,10 +158,7 @@ router.get('/', function(req, res, next) {
                 var myDataMetaMobile = await driver.findElement(By.css("div.CtOYUe.I4chsf.VJARVc.RtPpqe table.i3WFpf tbody tr:nth-child("+j+") td.XgRaPc.AB6Eee.QNcORc.csDJwd.LoCYSb.Bj8DDb.sbEvHd span.zRhise")).getText();
                 await insertError({error_value: company_name+' Mobile Usability',error_sub_value: myDataMetaMobile ,getCardsOnList: myConfiGration.card_id});
               }
-
           }
-
-
 
         }
 
