@@ -89,7 +89,6 @@ router.get('/', function(req, res, next) {
     // await driver.wait(until.elementLocated(By.css("div.aCsJod.oJeWuf div.aXBtI.I0VJ4d.Wic03c div.Xb9hP input.whsOnd.zHQkBf"))).sendKeys('1Wayit@apple');
 
 
-
     await sleep.sleep(45);
 
     console.log("login success");
