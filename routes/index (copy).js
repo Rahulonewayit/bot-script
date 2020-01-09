@@ -84,13 +84,13 @@ router.get('/', function(req, res, next) {
   try {
 
     await driver.get('https://search.google.com/search-console/welcome');
-    // await driver.wait(until.elementLocated(By.css("div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf"))).sendKeys('apps.1wayit@gmail.com');
-    // await driver.wait(until.elementLocated(By.id("identifierNext"))).click();
+    await driver.wait(until.elementLocated(By.css("div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf"))).sendKeys('apps.1wayit@gmail.com');
+    await driver.wait(until.elementLocated(By.id("identifierNext"))).click();
     // await driver.wait(until.elementLocated(By.css("div.aCsJod.oJeWuf div.aXBtI.I0VJ4d.Wic03c div.Xb9hP input.whsOnd.zHQkBf"))).sendKeys('1Wayit@apple');
 
 
 
-    await sleep.sleep(45);
+    await sleep.sleep(10);
 
     console.log("login success");
 
@@ -125,18 +125,6 @@ router.get('/', function(req, res, next) {
 
           await sleep.sleep(1);
           await driver.wait(until.elementLocated(By.css("div.sfS3Pd div:nth-child(2) a.Lhhaec"))).click();
-          await sleep.sleep(1);
-          await driver.navigate().refresh();
-
-          await driver.findElement(By.css("table.i3WFpf tbody tr td:nth-child(5) span span.Ncxbed")).then(async function(siteMapElement){
-              var sitemapVal = await driver.findElement(By.css("table.i3WFpf tbody tr td:nth-child(1) span")).getText();
-              await insertError({error_value: company_name+' Sitemaps',error_sub_value: myDataMetaMobile ,getCardsOnList: myConfiGration.card_id});
-
-          },function(err){
-              console.log('Element not found');
-          });
-
-
 
           if(i == 1)
           {
