@@ -21,7 +21,6 @@ const router = express.Router();
 
 var chromePath = require('chromedriver').path;
 
-
 const SeleniumRecord = require('../modules/selenium');
 
 async function insertError(my_val)
