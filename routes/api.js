@@ -2,7 +2,7 @@ var express = require('express');
 const mongoose = require('mongoose');
 const SeleniumRecord = require('../modules/selenium');
 var Trello = require("trello");
-var trello = new Trello("28df62567338bd5ede6bc84fa6ef59a9", "98119a05870d300a5d5463fd777eb526fff0267c899c7b22dfe669f53b6e0d36");
+var trello = new Trello(process.env.apiKey, process.env.oauthToken);
 
 var router = express.Router();
 
@@ -62,7 +62,7 @@ function getaddTrelloError(input)
 
 router.get('addcard/:id', function(req, res, next) {
   var my_valuse = req.params.id;
-  // trello.addCard(my_valuse, 'google console', '5a181330dd40811fb5cdbda5');
+  // trello.addCard(my_valuse, 'google console', process.env.card_id);
   // insertError(my_valuse);
   res.json(my_valuse);
 });
@@ -70,7 +70,7 @@ router.get('addcard/:id', function(req, res, next) {
 // function insertError(cardName,checkList)
 // {
 //     let loopArr = new Array();
-//     // var cardsPromise = trello.addCard(cardName, 'google console', '5a181330dd40811fb5cdbda5');
+//     // var cardsPromise = trello.addCard(cardName, 'google console', process.env.card_id);
 //     // cardsPromise.then((cards) => {
 //         for(var i =0; i < checkList.length; i++)
 //         {
@@ -88,9 +88,9 @@ router.get('/:id', async function(req, res, next) {
     //     res.json(cards);
     // });
 
-    var my_val = {error_value: '1wayit.com mobile usability 78',getCardsOnList: '5a181330dd40811fb5cdbda5'}
-    var my_vals = await insertError({error_value: '1wayit.com mobile usability 78',getCardsOnList: '5a181330dd40811fb5cdbda5'});
-    // var cardsPromise = trello.getCardsOnList('5a181330dd40811fb5cdbda5');
+    var my_val = {error_value: '1wayit.com mobile usability 78',getCardsOnList: process.env.card_id}
+    var my_vals = await insertError({error_value: '1wayit.com mobile usability 78',getCardsOnList: process.env.card_id});
+    // var cardsPromise = trello.getCardsOnList(process.env.card_id);
     // cardsPromise.then((cards) => {
     //     // trello.addChecklistToCard('5e047d63d420fb34038bc849','111111111aaaaaaaa');
     //     res.json(cards);
