@@ -84,12 +84,17 @@ router.get('/', function(req, res, next) {
   try {
 
     await driver.get('https://search.google.com/search-console/welcome');
+    await driver.wait(until.elementLocated(By.css("div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf"))).sendKeys('apps.1wayit@gmail.com');
+    await driver.wait(until.elementLocated(By.id("identifierNext"))).click();
+    // await driver.wait(until.elementLocated(By.css("div.aCsJod.oJeWuf div.aXBtI.I0VJ4d.Wic03c div.Xb9hP input.whsOnd.zHQkBf"))).sendKeys('1Wayit@apple');
 
 
-    await sleep.sleep(45);
+
+    await sleep.sleep(10);
 
     console.log("login success");
 
+    // 1Wayit@apple
 
     await driver.findElement(By.css("header div:nth-child(2) div:nth-child(1) div:nth-child(1)")).click();
     await sleep.sleep(2);
