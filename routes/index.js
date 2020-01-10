@@ -2,7 +2,6 @@ const express = require('express');
 const cheerio = require('cheerio');
 const mongoose = require('mongoose');
 const request = require("request");
-var sleep = require('sleep');
 const GoogleSpreadsheet = require('google-spreadsheet');
 const async = require('async');
 const path = require('path');
@@ -76,7 +75,9 @@ router.get('/', function(req, res, next) {
 
 
 
-
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 (async function example() {
   let driver = await new Builder().forBrowser('chrome').build();
@@ -84,13 +85,13 @@ router.get('/', function(req, res, next) {
 
     await driver.get('https://search.google.com/search-console/welcome');
 
-    await sleep.sleep(45);
+    await sleep(45000); // 5 seconds
 
     console.log("login success");
 
 
     await driver.findElement(By.css("header div:nth-child(2) div:nth-child(1) div:nth-child(1)")).click();
-    await sleep.sleep(2);
+    await sleep(2000);
     await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
 
 
@@ -99,24 +100,24 @@ router.get('/', function(req, res, next) {
       const forLoop = async _ => {
         for (i = 1; i <= elements.length; i++) {
 
-          await sleep.sleep(2);
+          await sleep(2000);
           await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
           var company_name = await driver.findElement(By.css("div.tWfTvb div.u3WVdc.jBmls div.s3ARzb.eejsDc.ddc5Hb div:nth-child("+i+") div div.iPVm1b.cgo1ib div.utePyc")).getText();
           company_name = company_name.replace('Domain property', '');
 
           await driver.findElement(By.css("div.tWfTvb div.u3WVdc.jBmls div.s3ARzb.eejsDc.ddc5Hb div:nth-child("+i+") div.iPVm1b.cgo1ib div.utePyc")).click();
 
-          await sleep.sleep(2);
+          await sleep(2000);
 
 
           await driver.wait(until.elementLocated(By.css("div.sfS3Pd div.cp8g2d a.Lhhaec"))).click();
-          await sleep.sleep(2);
+          await sleep(2000);
           await driver.navigate().refresh();
           var countmyCoverageMetaData = await driver.findElement(By.css("span.UwdJ1c")).getText();
 
           console.log('hello '+parseInt(countmyCoverageMetaData[countmyCoverageMetaData.length -1]));
 
-          await sleep.sleep(1);
+          await sleep(1000);
           await driver.navigate().refresh();
 
           if(i == 1)
@@ -132,7 +133,7 @@ router.get('/', function(req, res, next) {
             }
         }
 
-          await sleep.sleep(1);
+          await sleep(1000);
           await driver.wait(until.elementLocated(By.css("div.sfS3Pd div:nth-child(2) a.Lhhaec"))).click();
           await driver.navigate().refresh();
 
@@ -146,7 +147,7 @@ router.get('/', function(req, res, next) {
 
           await driver.wait(until.elementLocated(By.css("nav.j2F0y div:nth-child(4) div.sfS3Pd span div:nth-child(2) a.Lhhaec"))).click();
           await driver.navigate().refresh();
-          await sleep.sleep(2);
+          await sleep(2000);
           var myDataMeta = await driver.findElement(By.css("div.VgjuZe div.utnMJd span.QZAqyd span.AcJAxb span.UwdJ1c")).getText();
 
           if(parseInt(myDataMeta[myDataMeta.length -1]))

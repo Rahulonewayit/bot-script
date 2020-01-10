@@ -25,7 +25,6 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
     "selenium-webdriver": "^4.0.0-alpha.5",
-    "sleep": "^6.1.0",
     "trello": "^0.9.1",
     "trello-node-api": "0.0.7"
   }
