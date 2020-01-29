@@ -80,7 +80,27 @@ function sleep(ms) {
 }
 
 (async function example() {
-  let driver = await new Builder().forBrowser('chrome').build();
+  let driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
+  driver.manage().window().setRect({width: 1200, height: 800});
+  await driver.get('https://search.google.com/search-console/welcome');
+
+  // try{
+  //   var myvalll = await driver.findElement(By.css("div.jXeDnc div.Y4dIwd")).getText();
+  //   console.log(myvalll);
+  // }catch(e){
+  //   console.log('asddddddddddddddddddddddddddddd');
+  // }
+
+  // WebDriver driver = new ChromeDriver();
+  // driver.get('https://www.google.com');
+  // var width = 150;
+  // var height = 100;
+  // driver.manage().window().setRect({width: 800, height: 800});
+  // driver.manage().window().setSize(500, 500);
+  // driver.manage().window().maximize()
+  // const ctest = driver.manage().window();
+  // console.log(ctest);
+
   try {
 
     await driver.get('https://search.google.com/search-console/welcome');
@@ -90,18 +110,30 @@ function sleep(ms) {
     console.log("login success");
 
 
-    await driver.findElement(By.css("header div:nth-child(2) div:nth-child(1) div:nth-child(1)")).click();
+    try{
+        await driver.findElement(By.css("header div:nth-child(2) div:nth-child(1) div:nth-child(1)")).click();
+      }catch(e){
+        console.log('Sone thing went wrong');
+      }
+
     await sleep(2000);
-    await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
 
-
-    await driver.findElements(By.css("div.s3ARzb.eejsDc.ddc5Hb div.MkjOTb.oKubKe.zpVKtf")).then(elements => {
-
+    try{
+        await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
+    }catch(e){
+        console.log('Sone thing went wrong');
+    }
+    try{
+      await driver.findElements(By.css("div.s3ARzb.eejsDc.ddc5Hb div.MkjOTb.oKubKe.zpVKtf")).then(elements => {
       const forLoop = async _ => {
         for (i = 1; i <= elements.length; i++) {
 
           await sleep(2000);
-          await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
+          try{
+            await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
+          }catch(e){
+              console.log('Sone thing went wrong');
+          }
           var company_name = await driver.findElement(By.css("div.tWfTvb div.u3WVdc.jBmls div.s3ARzb.eejsDc.ddc5Hb div:nth-child("+i+") div div.iPVm1b.cgo1ib div.utePyc")).getText();
           company_name = company_name.replace('Domain property', '');
 
@@ -115,7 +147,7 @@ function sleep(ms) {
           await driver.navigate().refresh();
           var countmyCoverageMetaData = await driver.findElement(By.css("span.UwdJ1c")).getText();
 
-          console.log('hello '+parseInt(countmyCoverageMetaData[countmyCoverageMetaData.length -1]));
+          // console.log('hello '+parseInt(countmyCoverageMetaData[countmyCoverageMetaData.length -1]));
 
           await sleep(1000);
           await driver.navigate().refresh();
@@ -162,6 +194,9 @@ function sleep(ms) {
       }
       forLoop();
     });
+  }catch(e){
+      console.log('Sone thing went wrong');
+  }
   } finally {
   }
 })();
