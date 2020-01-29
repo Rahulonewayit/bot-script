@@ -81,39 +81,24 @@ function sleep(ms) {
 
 (async function example() {
   let driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
-  driver.manage().window().setRect({width: 1200, height: 800});
+  driver.manage().window().maximize();
   await driver.get('https://search.google.com/search-console/welcome');
 
-  // try{
-  //   var myvalll = await driver.findElement(By.css("div.jXeDnc div.Y4dIwd")).getText();
-  //   console.log(myvalll);
-  // }catch(e){
-  //   console.log('asddddddddddddddddddddddddddddd');
-  // }
 
-  // WebDriver driver = new ChromeDriver();
-  // driver.get('https://www.google.com');
-  // var width = 150;
-  // var height = 100;
   // driver.manage().window().setRect({width: 800, height: 800});
   // driver.manage().window().setSize(500, 500);
-  // driver.manage().window().maximize()
-  // const ctest = driver.manage().window();
-  // console.log(ctest);
 
   try {
 
     await driver.get('https://search.google.com/search-console/welcome');
-
     await sleep(45000); // 5 seconds
-
     console.log("login success");
-
 
     try{
         await driver.findElement(By.css("header div:nth-child(2) div:nth-child(1) div:nth-child(1)")).click();
       }catch(e){
-        console.log('Sone thing went wrong');
+        console.log('Boot has been scraping google cansole successfully');
+        await driver.quit();
       }
 
     await sleep(2000);
@@ -121,7 +106,8 @@ function sleep(ms) {
     try{
         await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
     }catch(e){
-        console.log('Sone thing went wrong');
+        console.log('Boot has been scraping google cansole successfully');
+        await driver.quit();
     }
     try{
       await driver.findElements(By.css("div.s3ARzb.eejsDc.ddc5Hb div.MkjOTb.oKubKe.zpVKtf")).then(elements => {
@@ -132,7 +118,8 @@ function sleep(ms) {
           try{
             await driver.findElement(By.css("div.rFrNMe.Ax4B8.PACruf.Lsmgje.zKHdkd div.aCsJod.oJeWuf div.aXBtI.Wic03c div.Xb9hP input.whsOnd.zHQkBf")).click();
           }catch(e){
-              console.log('Sone thing went wrong');
+              console.log('Boot has been scraping google cansole successfully');
+              await driver.quit();
           }
           var company_name = await driver.findElement(By.css("div.tWfTvb div.u3WVdc.jBmls div.s3ARzb.eejsDc.ddc5Hb div:nth-child("+i+") div div.iPVm1b.cgo1ib div.utePyc")).getText();
           company_name = company_name.replace('Domain property', '');
@@ -193,12 +180,15 @@ function sleep(ms) {
         }
       }
       forLoop();
+
+
     });
   }catch(e){
-      console.log('Sone thing went wrong');
+      console.log('Some thing went wrong');
   }
-  } finally {
+    } finally {
   }
+  await driver.quit();
 })();
 
 
